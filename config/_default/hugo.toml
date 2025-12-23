@@ -5,7 +5,7 @@
 # Set theme - required due to installation from github
 theme = "congo"
 
-baseURL = ""
+baseURL = "https://www.jaredszajkowski.com/"
 defaultContentLanguage = "en"
 
 enableRobotsTXT = true

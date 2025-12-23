@@ -2,38 +2,38 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Topics on Jared Szajkowski</title>
-    <link>/topics/</link>
+    <link>https://www.jaredszajkowski.com/topics/</link>
     <description>Recent content in Topics on Jared Szajkowski</description>
     <generator>Hugo</generator>
     <language>en</language>
     <lastBuildDate>Thu, 04 Dec 2025 00:00:01 +0000</lastBuildDate>
-    <atom:link href="/topics/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://www.jaredszajkowski.com/topics/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Federal Reserve Data</title>
-      <link>/topics/federal-reserve-data/</link>
+      <link>https://www.jaredszajkowski.com/topics/federal-reserve-data/</link>
       <pubDate>Sat, 29 Nov 2025 00:00:01 +0000</pubDate>
-      <guid>/topics/federal-reserve-data/</guid>
+      <guid>https://www.jaredszajkowski.com/topics/federal-reserve-data/</guid>
       <description></description>
     </item>
     <item>
       <title>Pandas</title>
-      <link>/topics/pandas/</link>
+      <link>https://www.jaredszajkowski.com/topics/pandas/</link>
       <pubDate>Sat, 29 Nov 2025 00:00:01 +0000</pubDate>
-      <guid>/topics/pandas/</guid>
+      <guid>https://www.jaredszajkowski.com/topics/pandas/</guid>
       <description></description>
     </item>
     <item>
       <title>Python</title>
-      <link>/topics/python/</link>
+      <link>https://www.jaredszajkowski.com/topics/python/</link>
       <pubDate>Sat, 29 Nov 2025 00:00:01 +0000</pubDate>
-      <guid>/topics/python/</guid>
+      <guid>https://www.jaredszajkowski.com/topics/python/</guid>
       <description></description>
     </item>
     <item>
       <title>Yahoo Finance</title>
-      <link>/topics/yahoo-finance/</link>
+      <link>https://www.jaredszajkowski.com/topics/yahoo-finance/</link>
       <pubDate>Sat, 29 Nov 2025 00:00:01 +0000</pubDate>
-      <guid>/topics/yahoo-finance/</guid>
+      <guid>https://www.jaredszajkowski.com/topics/yahoo-finance/</guid>
       <description></description>
     </item>
   </channel>

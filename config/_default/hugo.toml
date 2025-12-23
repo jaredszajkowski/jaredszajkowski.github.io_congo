@@ -2,10 +2,10 @@
 # Refer to the theme docs for more details about each of these parameters.
 # https://jpanther.github.io/congo/docs/getting-started/
 
-# Set theme
+# Set theme - required due to installation from github
 theme = "congo"
 
-# baseURL = "https://your_domain.com/"
+baseURL = "https://www.jaredszajkowski.com/"
 defaultContentLanguage = "en"
 
 enableRobotsTXT = true
@@ -28,3 +28,16 @@ summaryLength = 0
 [services]
   [services.x]
     disableInlineCSS = true
+
+[permalinks]
+  [permalinks.page]
+  #  posts = '/:year/:month/:day/:slug/'
+    posts = '/posts/:slug/'
+    pages = '/:slug/'
+  #[permalinks.section]
+  #  posts = '/posts/'
+  #  pages = '/pages/'
+  #  topics = '/'
+  #[permalinks.taxonomy]
+  #  topics = '/:slug/'
+

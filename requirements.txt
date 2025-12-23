@@ -1,0 +1,28 @@
+# Dependencies from this file can be installed with the following command:
+# I derived this file from the output of the following command and then edited it
+# in GitHub Actions. 
+# pip install -r requirements.txt
+
+black
+colorama
+doit
+jupyter
+matplotlib
+nasdaq-data-link
+numpy
+openpyxl
+optuna
+pandas
+pip-autoremove
+plotly
+python-calamine
+python-decouple
+python-dotenv
+scikit-learn
+scipy
+seaborn
+statsmodels
+tabulate
+wrds
+xgboost
+yfinance

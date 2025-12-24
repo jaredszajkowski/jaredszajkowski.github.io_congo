@@ -414,27 +414,6 @@ def task_deploy_site():
         "clean": [],  # Don't clean these files by default.
     }
 
-# def task_deploy_site():
-#     """Prompt for a commit message and push to GitHub"""
-#     def push_public():
-#         message = input("What is the commit message? ")
-#         if not message.strip():
-#             print("❌ Commit message cannot be empty.")
-#             return 1  # signal failure
-
-#         # Stage and commit only the public/ directory
-#         subprocess.run(["git", "add", str(PUBLIC_DIR)], check=True)
-#         subprocess.run(["git", "commit", "-am", message], check=True)
-#         subprocess.run(["git", "push"], check=True)
-#         print("✅ public/ directory pushed to GitHub main branch.")
-
-#     return {
-#         "actions": [push_public],
-#         "task_dep": ["create_schwab_callback"],
-#         "verbosity": 2,
-#         "clean": [],  # Don't clean these files by default.
-#     }
-
 # Uncomment the following to create a single task that runs all steps in order
 # def task_build_all():
 #     return {

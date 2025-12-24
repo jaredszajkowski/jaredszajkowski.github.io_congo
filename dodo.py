@@ -151,6 +151,7 @@ def task_config():
         "clean": [],  # Don't clean these files by default.
     }
 
+
 def task_list_posts_subdirs():
     """Create a list of the subdirectories of the posts directory"""
     return {
@@ -363,7 +364,6 @@ def task_copy_about_me_exports():
         "clean": [],  # Don't clean these files by default.
     }
 
-
 def task_create_schwab_callback():
     """Create a Schwab callback URL by creating /public/schwab_callback/index.html and placing the html code in it"""
     def create_callback():
@@ -400,7 +400,8 @@ def task_deploy_site():
         if not message.strip():
             print("❌ Commit message cannot be empty.")
             return 1  # signal failure
-        import subprocess
+
+        # Stage and commit all changes
         subprocess.run(["git", "add", "."], check=True)
         subprocess.run(["git", "commit", "-am", message], check=True)
         subprocess.run(["git", "push"], check=True)
@@ -413,6 +414,28 @@ def task_deploy_site():
         "clean": [],  # Don't clean these files by default.
     }
 
+# def task_deploy_site():
+#     """Prompt for a commit message and push to GitHub"""
+#     def push_public():
+#         message = input("What is the commit message? ")
+#         if not message.strip():
+#             print("❌ Commit message cannot be empty.")
+#             return 1  # signal failure
+
+#         # Stage and commit only the public/ directory
+#         subprocess.run(["git", "add", str(PUBLIC_DIR)], check=True)
+#         subprocess.run(["git", "commit", "-am", message], check=True)
+#         subprocess.run(["git", "push"], check=True)
+#         print("✅ public/ directory pushed to GitHub main branch.")
+
+#     return {
+#         "actions": [push_public],
+#         "task_dep": ["create_schwab_callback"],
+#         "verbosity": 2,
+#         "clean": [],  # Don't clean these files by default.
+#     }
+
+# Uncomment the following to create a single task that runs all steps in order
 # def task_build_all():
 #     return {
 #         "actions": None,

@@ -41,3 +41,7 @@ summaryLength = 0
   #[permalinks.taxonomy]
   #  topics = '/:slug/'
 
+# Modifying image cache location for GitHub workflow
+[caches]
+  [caches.images]
+    dir = ':cacheDir/images'

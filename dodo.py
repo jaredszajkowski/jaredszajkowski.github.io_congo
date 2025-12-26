@@ -319,9 +319,16 @@ def task_copy_notebook_exports():
             if not date_str:
                 continue
 
-            # Format path like: public/YYYY/MM/DD/slug/
+            # Old functionality to format path based on date
+            # # Format path like: public/YYYY/MM/DD/slug/
+            # date_obj = datetime.fromisoformat(date_str)
+            # public_path = PUBLIC_DIR / f"{date_obj:%Y/%m/%d}" / slug
+            # target_path = public_path / f"{slug}.html"
+
+            # New functionality to ignore date and just use slug
+            # Format path like: public/posts/slug/
             date_obj = datetime.fromisoformat(date_str)
-            public_path = PUBLIC_DIR / f"{date_obj:%Y/%m/%d}" / slug
+            public_path = PUBLIC_DIR / "posts" / slug
             target_path = public_path / f"{slug}.html"
 
             def copy_html(src=html_file, dest=target_path):

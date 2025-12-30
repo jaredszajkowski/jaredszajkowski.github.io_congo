@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Arch Linux on Jared Szajkowski</title>
+    <link>https://jaredszajkowski.github.io/jaredszajkowski.github.io_congo/topics/arch-linux/</link>
+    <description>Recent content in Arch Linux on Jared Szajkowski</description>
+    <generator>Hugo</generator>
+    <language>en</language>
+    <copyright>Copyright © 2025 Jared Szajkowski. All rights reserved.</copyright>
+    <lastBuildDate>Tue, 07 Nov 2023 00:00:00 +0000</lastBuildDate>
+    <atom:link href="https://jaredszajkowski.github.io/jaredszajkowski.github.io_congo/topics/arch-linux/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Arch Linux Install</title>
+      <link>https://jaredszajkowski.github.io/jaredszajkowski.github.io_congo/posts/arch-linux-install/</link>
+      <pubDate>Fri, 29 Sep 2023 00:00:01 +0000</pubDate>
+      <guid>https://jaredszajkowski.github.io/jaredszajkowski.github.io_congo/posts/arch-linux-install/</guid>
+      <description>A guide to Arch Linux install with customizations for the  Lenovo ThinkPad E15 Gen 2.</description>
+    </item>
+  </channel>
+</rss>

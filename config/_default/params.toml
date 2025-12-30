@@ -5,7 +5,8 @@
 # Refer to the theme docs for more details about each of these parameters.
 # https://jpanther.github.io/congo/docs/configuration/#theme-parameters
 
-colorScheme = "custom_was_slate"
+#colorScheme = "custom_was_slate"
+colorScheme = "custom_was_ocean"
 defaultThemeColor = "#FFFFFF"
 
 defaultAppearance = "light" # valid options: light or dark
@@ -49,7 +50,7 @@ fingerprintAlgorithm = "sha256"
   # editAppendPath = true
   showHeadingAnchors = true
   showPagination = true
-  invertPagination = true
+  invertPagination = false
   showReadingTime = true
   showTableOfContents = true
   showTaxonomies = true

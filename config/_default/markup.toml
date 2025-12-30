@@ -7,6 +7,13 @@
 
 [highlight]
   noClasses = false
+  codeFences = true
+  guessSyntax = true
+  lineNos = false
+  lineNoStart = 1
+  lineNumbersInTable = true
+  #style = "dracula"
+  tabWidth = 4
 
 [tableOfContents]
   startLevel = 2

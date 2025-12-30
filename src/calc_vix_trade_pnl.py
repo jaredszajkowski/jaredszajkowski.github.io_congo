@@ -11,8 +11,8 @@ def calc_vix_trade_pnl(
     """
     Calculate the profit and loss (PnL) of trades based on transaction data.
 
-    Parameters:
-    -----------
+    Parameters
+    ----------
     transaction_df : pd.DataFrame
         DataFrame containing transaction data.
     exp_start_date : str
@@ -24,8 +24,8 @@ def calc_vix_trade_pnl(
     trade_end_date : str
         End date for filtering transactions in 'YYYY-MM-DD' format. This is the end of the range for the trade date.
 
-    Returns:
-    --------
+    Returns
+    -------
     transactions_data : pd.DataFrame
         Dataframe containing the transactions for the specified timeframe.
     closed_trades : pd.DataFrame

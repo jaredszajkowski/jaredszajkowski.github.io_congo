@@ -24,8 +24,8 @@ The scripts check for an existing data record, and if found then the existing re
 
 Here are the functions needed for this project:
 
-* [polygon_fetch_full_history](/2025/02/02/reusable-extensible-python-functions-financial-data-analysis/#polygon_fetch_full_history): Fetch full historical data for a given product from Polygon API.</br>
-* [polygon_pull_data](/2025/02/02/reusable-extensible-python-functions-financial-data-analysis/#polygon_pull_data): Read existing data file, download price data from Polygon, and export data.</br>
+* [polygon_fetch_full_history](/posts/reusable-extensible-python-functions-financial-data-analysis/#polygon_fetch_full_history): Fetch full historical data for a given product from Polygon API.</br>
+* [polygon_pull_data](/posts/reusable-extensible-python-functions-financial-data-analysis/#polygon_pull_data): Read existing data file, download price data from Polygon, and export data.</br>
 
 ## Function Usage
 
@@ -109,6 +109,8 @@ df = polygon_fetch_full_history(
 
 The example above pulls the daily data since 1/1/2025, but can handle data ranges of years because it pulls only a specific number of records at a time as recommended by Polygon (less than 5,000 records per API request), and then combines the records in the dataframe before returning the dataframe.
 
+Here's the first 5 rows:
+
 <!-- INSERT_polygon_fetch_full_history_HERE -->
 
 ### Polygon Pull Data
@@ -189,7 +191,7 @@ df = polygon_pull_data(
 )
 ```
 
-Here's the output from above:
+Here's the first 5 rows from the output from above:
 
 <!-- INSERT_polygon_pull_data_HERE -->
 
@@ -202,6 +204,4 @@ We can see that the index is not continuous - but this is not an issue because u
 
 ## Code
 
-The jupyter notebook with the functions and all other code is available [here](data-pipelining-with-polygon.ipynb).</br>
-The html export of the jupyter notebook is available [here](data-pipelining-with-polygon.html).</br>
-The pdf export of the jupyter notebook is available [here](data-pipelining-with-polygon.pdf).
+{{< post-files >}}

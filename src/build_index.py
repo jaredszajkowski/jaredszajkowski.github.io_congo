@@ -10,17 +10,17 @@ def build_index() -> None:
     placeholder in the template (formatted as <!-- INSERT_<name>_HERE -->) with the content 
     from the markdown file. If a file is missing, the placeholder is replaced with a warning note.
 
-    Output:
-    -------
+    Output
+    ------
     - Writes the final assembled content to `index.md`.
 
-    Raises:
-    -------
+    Raises
+    ------
     FileNotFoundError:
         If either `index_temp.md` or `index_dep.txt` does not exist.
 
-    Example:
-    --------
+    Example
+    -------
     If `index_dep.txt` contains:
         01_intro.md
         02_analysis.md

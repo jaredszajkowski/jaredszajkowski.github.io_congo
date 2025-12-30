@@ -3,6 +3,7 @@ import pandas as pd
 
 from IPython.display import display
 
+
 def bb_clean_data(
     base_directory: str,
     fund_ticker_name: str,
@@ -12,13 +13,12 @@ def bb_clean_data(
     pickle_export: bool,
     output_confirmation: bool,
 ) -> pd.DataFrame:
-
     """
-    This function takes an excel export from Bloomberg and removes all excess data 
+    This function takes an excel export from Bloomberg and removes all excess data
     leaving date and close columns.
 
-    Parameters:
-    -----------
+    Parameters
+    ----------
     base_directory : str
         Root path to store downloaded data.
     fund : str
@@ -33,9 +33,9 @@ def bb_clean_data(
         If True, export data to Pickle format.
     output_confirmation : bool
         If True, print confirmation message.
-        
-    Returns:
-    --------
+
+    Returns
+    -------
     df : pd.DataFrame
         DataFrame containing cleaned data prices.
     """
@@ -45,33 +45,33 @@ def bb_clean_data(
 
     # Read data from excel
     try:
-        df = pd.read_excel(location, sheet_name ="Worksheet", engine="calamine")
+        df = pd.read_excel(location, sheet_name="Worksheet", engine="calamine")
     except FileNotFoundError:
         print(f"File not found...please download the data for {fund_ticker_name}")
-    
+
     # Set the column headings from row 5 (which is physically row 6)
     df.columns = df.iloc[5]
-    
+
     # Set the column heading for the index to be "None"
-    df.rename_axis(None, axis=1, inplace = True)
-    
+    df.rename_axis(None, axis=1, inplace=True)
+
     # Drop the first 6 rows, 0 - 5
     df.drop(df.index[0:6], inplace=True)
-    
+
     # Set the date column as the index
-    df.set_index('Date', inplace = True)
-    
+    df.set_index("Date", inplace=True)
+
     # Drop the volume column
     try:
-        df.drop(columns = {'PX_VOLUME'}, inplace = True)
+        df.drop(columns={"PX_VOLUME"}, inplace=True)
     except KeyError:
         pass
-        
+
     # Rename column
-    df.rename(columns = {'PX_LAST':'Close'}, inplace = True)
-    
+    df.rename(columns={"PX_LAST": "Close"}, inplace=True)
+
     # Sort by date
-    df.sort_values(by=['Date'], inplace = True)
+    df.sort_values(by=["Date"], inplace=True)
 
     # Create directory
     directory = f"{base_directory}/{source}/{asset_class}/Daily"
@@ -98,5 +98,5 @@ def bb_clean_data(
         print(f"--------------------")
     else:
         pass
-    
+
     return df

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Bloomberg on Jared Szajkowski</title>
+    <link>https://jaredszajkowski.github.io/jaredszajkowski.github.io_congo/topics/bloomberg/</link>
+    <description>Recent content in Bloomberg on Jared Szajkowski</description>
+    <generator>Hugo</generator>
+    <language>en</language>
+    <copyright>Copyright © 2025 Jared Szajkowski. All rights reserved.</copyright>
+    <lastBuildDate>Mon, 28 Jul 2025 00:00:01 +0000</lastBuildDate>
+    <atom:link href="https://jaredszajkowski.github.io/jaredszajkowski.github.io_congo/topics/bloomberg/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Reusable And Extensible Python Functions For Financial Data Analysis</title>
+      <link>https://jaredszajkowski.github.io/jaredszajkowski.github.io_congo/posts/reusable-extensible-python-functions-financial-data-analysis/</link>
+      <pubDate>Sun, 02 Feb 2025 00:00:01 +0000</pubDate>
+      <guid>https://jaredszajkowski.github.io/jaredszajkowski.github.io_congo/posts/reusable-extensible-python-functions-financial-data-analysis/</guid>
+      <description>A list of common functions used for data acquisition, cleaning, analysis, etc.</description>
+    </item>
+  </channel>
+</rss>

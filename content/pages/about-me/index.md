@@ -49,7 +49,7 @@ Jared has completed the following graduate courses in the Univeristy of Chicago 
 * [**FINM 37301 - Foreign Exchange: Markets, Products, and Pricing**](https://finmath.uchicago.edu/curriculum/degree-concentrations/rates-and-credit/finm-37301/)
 * [**FINM 35910 - Applied Algorithmic Trading**](https://finmath.uchicago.edu/curriculum/degree-concentrations/trading/finm-35910/)</br>
     Example coursework: The final group project was to "develop and present a fictional fund focusing on alternative algorithmic trading strategies." The strategy was to provide "uncorrelated return relative to the S&P 500 Index through robust strategy creation, risk management, and performance metrics."
-    * Final presesntation [slide deck](finm_35910_final_presentation_Johnson_Holt_Szajkowski.pdf)
+    * Final presentation [slide deck](finm_35910_final_presentation_Johnson_Holt_Szajkowski.pdf)
     * Final [calculations in Jupyter Notebook](finm_35910_ML_Strat_ZJ_JRS.ipynb), [HTML](finm_35910_ML_Strat_ZJ_JRS.html)</br></br>
     From the fund prospectus:
     > Part-Time Trading LLC is an investment firm focusing on developing machine-learning models to actively predict prices within cryptocurrency markets. Our fundʼs objective is to extract predictive features from crypto market data and utilize these features to develop best in class predictive machine learning models. Currently, we are focusing our trading efforts on trading Bitcoin and Ethereum on the crypto exchange
@@ -57,10 +57,10 @@ Kraken. As we continue to advance our proprietary research and models, we plan t
 * [**FINM 31200 - Blockchain and Cryptoassets for Finance**](https://finmath.uchicago.edu/curriculum/degree-concentrations/rates-and-credit/finm-31200/)
 * [**FINM 32900 - Full-Stack Quantitative Finance**](https://finmath.uchicago.edu/curriculum/degree-concentrations/financial-computing/finm-32900/)
 * [**BUSN 41204 - Machine Learning**](https://apps.chicagobooth.edu/PublicApps/CourseSearch/CourseSearchFilter) (search "41204" in the search under "Course Number")
+* [**FINM 36000 - Project Lab**](https://finmath.uchicago.edu/curriculum/project-lab/)
 
 Jared currently plans to graduate in the spring of 2026 after completing the following courses:
 
-* [**FINM 36000 - Project Lab**](https://finmath.uchicago.edu/curriculum/project-lab/)
 * [**FINM 37400 - Fixed Income**](https://finmath.uchicago.edu/curriculum/degree-concentrations/rates-and-credit/finm-37400/)
 * [**FINM 35700 - Credit Markets**](https://finmath.uchicago.edu/curriculum/degree-concentrations/rates-and-credit/finm-35700/)
 
@@ -68,5 +68,5 @@ Jared currently plans to graduate in the spring of 2026 after completing the fol
 
 Jared currently holds the following professional certifications:
 
-* Professional Engineer (PE), Illinois Department of Financial and Professional Regulation, License Number 062073506
+* Professional Engineer (P.E.), Illinois Department of Financial and Professional Regulation, License Number 062073506
 * Project Management Professional (PMP), Project Management Institute, License Number 2595125

@@ -134,11 +134,15 @@ def polygon_fetch_full_history(
                     raise Exception("No common columns to compare.")
 
                 # (Optional) de-duplicate to speed up the merge
-                full_dedup = full_history_df[common_cols].drop_duplicates()
-                new_dedup  = new_data[common_cols].drop_duplicates()
+                # full_dedup = full_history_df[common_cols].drop_duplicates()
+                # new_dedup  = new_data[common_cols].drop_duplicates()
+
+                price_cols = ['open', 'high', 'low', 'close']
 
                 # Inner join on every shared column = exact row matches
-                overlap = full_dedup.merge(new_dedup, on=common_cols, how="inner")
+                # overlap = full_dedup.merge(new_dedup, on=common_cols, how="inner")
+                # overlap = full_dedup.merge(new_dedup, on=price_cols, how="inner")
+                overlap = full_history_df.merge(new_data, on=price_cols, how="inner")
 
                 if overlap.empty:
                     raise Exception(f"New data does not overlap with existing data (full-row check).")
@@ -232,8 +236,8 @@ if __name__ == "__main__":
     # Example usage - minute
     df = polygon_fetch_full_history(
         client=client,
-        ticker="SPY",
-        timespan="day",
+        ticker="TQQQ",
+        timespan="hour",
         multiplier=1,
         adjusted=True,
         existing_history_df=df,

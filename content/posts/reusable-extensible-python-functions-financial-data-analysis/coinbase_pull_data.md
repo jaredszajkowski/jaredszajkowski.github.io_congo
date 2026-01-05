@@ -1,4 +1,3 @@
-```text
 ```python
 import calendar
 import os
@@ -376,5 +375,4 @@ if __name__ == "__main__":
     #         start_date=datetime(current_year, current_month - 1, 1), # default start date
     #         end_date=datetime.now() - timedelta(days=1), # updates data through 1 day ago due to lag in data availability
     #     )
-```
 ```

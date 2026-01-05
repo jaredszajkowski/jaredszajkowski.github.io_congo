@@ -1,4 +1,3 @@
-```text
 ```python
 import pandas as pd
 import numpy as np
@@ -106,5 +105,4 @@ def summary_stats(
         pass
     
     return df_stats
-```
 ```

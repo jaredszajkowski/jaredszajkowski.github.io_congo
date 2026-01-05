@@ -1,4 +1,3 @@
-```text
 ```python
 import pandas as pd
 from pathlib import Path
@@ -66,5 +65,4 @@ def load_data(
     
     else:
         raise ValueError(f"❌ Unsupported file format: {file_format}. Please use 'csv', 'excel', or 'pickle'.")
-```
 ```

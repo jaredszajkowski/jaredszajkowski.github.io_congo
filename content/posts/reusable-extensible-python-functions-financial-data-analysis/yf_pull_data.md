@@ -1,4 +1,3 @@
-```text
 ```python
 import os
 import pandas as pd
@@ -90,5 +89,4 @@ def yf_pull_data(
         pass
 
     return df
-```
 ```

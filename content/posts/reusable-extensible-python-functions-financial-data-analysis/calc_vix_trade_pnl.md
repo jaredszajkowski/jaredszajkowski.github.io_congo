@@ -1,4 +1,3 @@
-```text
 ```python
 import pandas as pd
 
@@ -111,5 +110,4 @@ def calc_vix_trade_pnl(
     total_closed_pos_mkt_val_str = f"${total_closed_pos_mkt_val:,.2f}"
 
     return transactions_data, closed_trades, open_trades, net_PnL_percent_str, net_PnL_str, total_opened_pos_mkt_val_str, total_closed_pos_mkt_val_str
-```
 ```

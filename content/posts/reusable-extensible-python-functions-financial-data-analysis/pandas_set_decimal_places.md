@@ -1,4 +1,3 @@
-```text
 ```python
 import pandas as pd
 
@@ -27,5 +26,4 @@ def pandas_set_decimal_places(
     """
     
     pd.set_option('display.float_format', lambda x: f'%.{decimal_places}f' % x)
-```
 ```

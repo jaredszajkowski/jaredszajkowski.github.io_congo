@@ -1,4 +1,3 @@
-```text
 ```python
 import matplotlib.dates as mdates
 import matplotlib.pyplot as plt
@@ -92,5 +91,4 @@ def plot_vix_with_trades(
     plt.show()
 
     return vix_data
-```
 ```

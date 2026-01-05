@@ -22,8 +22,9 @@ current_year = datetime.now().year
 current_month = datetime.now().month
 current_day = datetime.now().day
 
-# Set global variable for free tier
+# Set global variables
 GLOBAL_FREE_TIER = True
+GLOBAL_PULL_MINUTE = False
 
 # Crypto Data
 # None
@@ -31,31 +32,35 @@ GLOBAL_FREE_TIER = True
 # Stock Data
 equities = {
     'AAPL': 'Apple Inc.', 
-    'AMZN': 'Amazon.Com Inc',
+    'AMZN': 'Amazon.Com Inc', 
+    'TSLA': 'Tesla, Inc. Common Stock'
 }
 
 # Iterate through each stock
 for stock in equities.keys():
-    # Pull minute data
-    polygon_pull_data(
-        base_directory=DATA_DIR,
-        ticker=stock,
-        source="Polygon",
-        asset_class="Equities",
-        start_date=datetime(current_year - 2, current_month, current_day),
-        timespan="minute",
-        multiplier=1,
-        adjusted=True,
-        force_existing_check=False,
-        verbose=False,
-        free_tier=GLOBAL_FREE_TIER,
-        excel_export=True,
-        pickle_export=True,
-        output_confirmation=True,
-    )
+    if GLOBAL_PULL_MINUTE == True:
+        # Pull minute data
+        polygon_pull_data(
+            base_directory=DATA_DIR,
+            ticker=stock,
+            source="Polygon",
+            asset_class="Equities",
+            start_date=datetime(current_year - 2, current_month, current_day),
+            timespan="minute",
+            multiplier=1,
+            adjusted=True,
+            force_existing_check=False,
+            verbose=False,
+            free_tier=GLOBAL_FREE_TIER,
+            excel_export=False,
+            pickle_export=True,
+            output_confirmation=True,
+        )
 
-    if GLOBAL_FREE_TIER == True:
-        time.sleep(12)
+        if GLOBAL_FREE_TIER == True:
+            time.sleep(12)
+        else:
+            pass
     else:
         pass
 
@@ -252,42 +257,42 @@ for stock in equities.keys():
 
 # Exchange Traded Fund Data
 etfs = {
-    # 'AGG': 'iShares Core U.S. Aggregate Bond ETF', 
-    # 'BND': 'Vanguard Total Bond Market', 
-    # 'DHY': 'Credit Suisse High Yield Bond Fund', 
-    # 'DIG': 'ProShares Ultra Energy', 
-    # 'EBND': 'SPDR Bloomberg Emerging Markets Local Bond ETF', 
-    # 'EDC': 'Direxion Daily Emerging Markets Bull 3X Shares, Shares of beneficial interest, no par value', 
-    # 'EEM': 'iShares MSCI Emerging Markets ETF', 
-    # 'EET': 'ProShares Ultra MSCI Emerging Markets', 
-    # 'EFA': 'iShares MSCI EAFE ETF', 
-    # 'EFO': 'ProShares Ultra MSCI EAFE', 
-    # 'GLD': 'SPDR Gold Trust, SPDR Gold Shares', 
-    # 'GSG': 'iShares S&P  GSCI Commodity-Indexed Trust', 
-    # 'IAU': 'iShares Gold Trust', 
-    # 'IDU': 'iShares U.S. Utilities ETF', 
-    # 'IEF': 'iShares 7-10 Year Treasury Bond ETF', 
-    # 'IEI': 'iShares 3-7 Year Treasury Bond ETF', 
-    # 'IVV': 'iShares Core S&P 500 ETF', 
-    # 'IWM': 'iShares Russell 2000 ETF', 
-    # 'IYC': 'iShares U.S. Consumer Discretionary ETF', 
-    # 'IYE': 'iShares U.S. Energy ETF', 
-    # 'IYF': 'iShares U.S. Financials ETF', 
-    # 'IYH': 'iShares U.S. Healthcare ETF', 
-    # 'IYJ': 'iShares U.S. Industrials ETF', 
-    # 'IYK': 'iShares U.S. Consumer Staples ETF', 
-    # 'IYM': 'iShares U.S. Basic Materials ETF', 
-    # 'IYR': 'iShares U.S. Real Estate ETF', 
-    # 'IYW': 'iShares U.S. Technology ETF', 
-    # 'IYZ': 'iShares U.S. Telecommunications ETF', 
-    # 'LTL': 'ProShares Ultra Communication Services', 
-    # 'MVV': 'ProShares Ultra MidCap400', 
-    # 'ROM': 'ProShares Ultra Technology', 
-    # 'RXL': 'ProShares Ultra Health Care', 
-    # 'SCHZ': 'Schwab US Aggregate Bond ETF', 
-    # 'SGOV': 'iShares 0-3 Month Treasury Bond ETF',
-    # 'SPY': 'SPDR S&P 500 ETF Trust', 
-    # 'SSO': 'ProShares Ultra S&P500', 
+    'AGG': 'iShares Core U.S. Aggregate Bond ETF', 
+    'BND': 'Vanguard Total Bond Market', 
+    'DHY': 'Credit Suisse High Yield Bond Fund', 
+    'DIG': 'ProShares Ultra Energy', 
+    'EBND': 'SPDR Bloomberg Emerging Markets Local Bond ETF', 
+    'EDC': 'Direxion Daily Emerging Markets Bull 3X Shares, Shares of beneficial interest, no par value', 
+    'EEM': 'iShares MSCI Emerging Markets ETF', 
+    'EET': 'ProShares Ultra MSCI Emerging Markets', 
+    'EFA': 'iShares MSCI EAFE ETF', 
+    'EFO': 'ProShares Ultra MSCI EAFE', 
+    'GLD': 'SPDR Gold Trust, SPDR Gold Shares', 
+    'GSG': 'iShares S&P  GSCI Commodity-Indexed Trust', 
+    'IAU': 'iShares Gold Trust', 
+    'IDU': 'iShares U.S. Utilities ETF', 
+    'IEF': 'iShares 7-10 Year Treasury Bond ETF', 
+    'IEI': 'iShares 3-7 Year Treasury Bond ETF', 
+    'IVV': 'iShares Core S&P 500 ETF', 
+    'IWM': 'iShares Russell 2000 ETF', 
+    'IYC': 'iShares U.S. Consumer Discretionary ETF', 
+    'IYE': 'iShares U.S. Energy ETF', 
+    'IYF': 'iShares U.S. Financials ETF', 
+    'IYH': 'iShares U.S. Healthcare ETF', 
+    'IYJ': 'iShares U.S. Industrials ETF', 
+    'IYK': 'iShares U.S. Consumer Staples ETF', 
+    'IYM': 'iShares U.S. Basic Materials ETF', 
+    'IYR': 'iShares U.S. Real Estate ETF', 
+    'IYW': 'iShares U.S. Technology ETF', 
+    'IYZ': 'iShares U.S. Telecommunications ETF', 
+    'LTL': 'ProShares Ultra Communication Services', 
+    'MVV': 'ProShares Ultra MidCap400', 
+    'ROM': 'ProShares Ultra Technology', 
+    'RXL': 'ProShares Ultra Health Care', 
+    'SCHZ': 'Schwab US Aggregate Bond ETF', 
+    'SGOV': 'iShares 0-3 Month Treasury Bond ETF',
+    'SPY': 'SPDR S&P 500 ETF Trust', 
+    'SSO': 'ProShares Ultra S&P500', 
     'TLT': 'iShares 20+ Year Treasury Bond ETF', 
     'TMF': 'Direxion Daily 20+ Year Treasury Bull 3X Shares (based on the NYSE 20 Year Plus Treasury Bond Index; symbol AXTWEN)', 
     'TQQQ': 'ProShares  UltraPro QQQ', 
@@ -320,26 +325,29 @@ etfs = {
 
 # Iterate through each ETF
 for fund in etfs.keys():
-    # Pull minute data
-    polygon_pull_data(
-        base_directory=DATA_DIR,
-        ticker=fund,
-        source="Polygon",
-        asset_class="Exchange_Traded_Funds",
-        start_date=datetime(current_year - 2, current_month, current_day),
-        timespan="minute",
-        multiplier=1,
-        adjusted=True,
-        force_existing_check=False,
-        verbose=False,
-        free_tier=GLOBAL_FREE_TIER,
-        excel_export=True,
-        pickle_export=True,
-        output_confirmation=True,
-    )
+    if GLOBAL_PULL_MINUTE == True:
+        # Pull minute data
+        polygon_pull_data(
+            base_directory=DATA_DIR,
+            ticker=fund,
+            source="Polygon",
+            asset_class="Exchange_Traded_Funds",
+            start_date=datetime(current_year - 2, current_month, current_day),
+            timespan="minute",
+            multiplier=1,
+            adjusted=True,
+            force_existing_check=False,
+            verbose=False,
+            free_tier=GLOBAL_FREE_TIER,
+            excel_export=False,
+            pickle_export=True,
+            output_confirmation=True,
+        )
 
-    if GLOBAL_FREE_TIER == True:
-        time.sleep(12)
+        if GLOBAL_FREE_TIER == True:
+            time.sleep(12)
+        else:
+            pass
     else:
         pass
 

@@ -1,4 +1,3 @@
-```text
 ```python
 import os
 import pandas as pd
@@ -80,17 +79,22 @@ def polygon_pull_data(
     # Set file location based on parameters
     file_location = f"{base_directory}/{source}/{asset_class}/{timespan}/{ticker}.pkl"
 
-    if timespan == "minute":
-        time_delta = 15
-        time_overlap = 1
-    elif timespan == "hour":
-        time_delta = 15
-        time_overlap = 1
-    elif timespan == "day":
-        time_delta = 180
-        time_overlap = 1
-    else:
-        raise Exception(f"Invalid {timespan}.")
+    # Create list of acceptable timespans
+    acceptable_timespans = ["minute", "hour", "day"]
+    if timespan not in acceptable_timespans:
+        raise Exception(f"Invalid timespan: {timespan}. Acceptable timespans are: {acceptable_timespans}.")
+
+    # if timespan == "minute":
+    #     time_delta = 15
+    #     time_overlap = 1
+    # elif timespan == "hour":
+    #     time_delta = 15
+    #     time_overlap = 1
+    # elif timespan == "day":
+    #     time_delta = 180
+    #     time_overlap = 1
+    # else:
+    #     raise Exception(f"Invalid {timespan}.")
 
     try:
         # Attempt to read existing pickle data file
@@ -110,11 +114,13 @@ def polygon_pull_data(
         last_data_date = existing_history_df["Date"].max()
         print(f"Last date in existing data: {last_data_date}")
 
+        # Find the number of starting rows
         starting_rows = len(existing_history_df)
         print(f"Number of rows in existing data: {starting_rows}")
 
         # Overlap with existing data to capture all data
-        current_start = last_data_date - timedelta(days=time_overlap)
+        # current_start = last_data_date - timedelta(days=time_overlap)
+        current_start = last_data_date - timedelta(days=1)
 
     except FileNotFoundError:
         # Print error
@@ -134,6 +140,9 @@ def polygon_pull_data(
                 "otc": pd.Series(dtype="object"),
             }
         )
+
+        # Set the number of starting rows to be 0
+        starting_rows = 0
 
         # Set current date to start date
         current_start = start_date
@@ -194,7 +203,7 @@ if __name__ == "__main__":
     current_month = datetime.now().month
     current_day = datetime.now().day
 
-    # Set global variable for free tier
+    # Set global variables
     GLOBAL_FREE_TIER = True
 
     # Stock Data
@@ -271,5 +280,4 @@ if __name__ == "__main__":
         else:
             pass
         
-```
 ```

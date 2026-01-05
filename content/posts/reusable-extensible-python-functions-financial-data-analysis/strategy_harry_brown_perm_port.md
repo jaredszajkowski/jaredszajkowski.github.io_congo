@@ -1,4 +1,3 @@
-```text
 ```python
 import pandas as pd
 
@@ -199,5 +198,4 @@ def strategy_harry_brown_perm_port(
         pass
 
     return df
-```
 ```

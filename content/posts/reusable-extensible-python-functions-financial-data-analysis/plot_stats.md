@@ -1,4 +1,3 @@
-```text
 ```python
 import matplotlib.pyplot as plt
 import pandas as pd
@@ -99,5 +98,4 @@ def plot_stats(
 
     return None
 
-```
 ```

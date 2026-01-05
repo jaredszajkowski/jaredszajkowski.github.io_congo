@@ -1,4 +1,3 @@
-```text
 ```python
 import pandas as pd
 from IPython.display import display
@@ -37,5 +36,4 @@ def df_info(
     display(df.head())
     print("The last 5 rows are:")
     display(df.tail())
-```
 ```

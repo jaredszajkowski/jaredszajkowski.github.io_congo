@@ -1,4 +1,3 @@
-```text
 ```python
 import os
 
@@ -56,5 +55,4 @@ if __name__ == "__main__":
     # Example usage
     api_keys = load_api_keys()
     print("API keys loaded successfully.")
-```
 ```

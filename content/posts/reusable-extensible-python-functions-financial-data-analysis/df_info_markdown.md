@@ -1,4 +1,3 @@
-```text
 ```python
 import io
 import pandas as pd
@@ -73,5 +72,4 @@ def df_info_markdown(
     ]
 
     return "\n".join(markdown)
-```
 ```

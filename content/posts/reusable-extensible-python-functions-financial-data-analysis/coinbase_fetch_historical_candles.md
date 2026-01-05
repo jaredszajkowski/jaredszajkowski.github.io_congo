@@ -1,4 +1,3 @@
-```text
 ```python
 import pandas as pd
 import requests
@@ -93,5 +92,4 @@ if __name__ == "__main__":
         print(df)
     else:
         print("No data returned.")
-```
 ```

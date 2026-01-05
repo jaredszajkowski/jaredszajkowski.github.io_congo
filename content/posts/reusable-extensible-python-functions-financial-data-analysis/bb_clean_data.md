@@ -1,4 +1,3 @@
-```text
 ```python
 import os
 import pandas as pd
@@ -16,8 +15,8 @@ def bb_clean_data(
     output_confirmation: bool,
 ) -> pd.DataFrame:
     """
-    This function takes an excel export from Bloomberg and removes all excess data
-    leaving date and close columns.
+    This function takes an excel export from Bloomberg and removes all
+    excess data leaving date and close columns.
 
     Parameters
     ----------
@@ -103,5 +102,4 @@ def bb_clean_data(
 
     return df
 
-```
 ```

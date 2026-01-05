@@ -1,4 +1,3 @@
-```text
 ```python
 from pathlib import Path
 
@@ -6,6 +5,7 @@ def export_track_md_deps(
     dep_file: Path, 
     md_filename: str, 
     content: str,
+    text_or_python: str,
 ) -> None:
     
     """
@@ -24,6 +24,8 @@ def export_track_md_deps(
         The name of the Markdown file to export.
     content : str
         The Markdown-formatted content to write to the file.
+    text_or_python : str
+        Indicates whether the content is plain text or Python code for proper formatting.
 
     Returns:
     --------
@@ -35,9 +37,14 @@ def export_track_md_deps(
     ✅ Exported and tracked: 01_intro.md
     """
     
-    Path(md_filename).write_text(f"```text\n{content}\n```")
+    if text_or_python == "python":
+        Path(md_filename).write_text(f"```python\n{content}\n```")
+    elif text_or_python == "text":
+        Path(md_filename).write_text(f"```text\n{content}\n```")
+    else:
+        raise ValueError("text_or_python must be either 'text' or 'python'")
+
     with dep_file.open("a") as f:
         f.write(md_filename + "\n")
     print(f"✅ Exported and tracked: {md_filename}")
-```
 ```

@@ -39,7 +39,7 @@ def polygon_fetch_ticker_details(
 
 if __name__ == "__main__":
 
-    equities = [
+    equity_tickers = [
         # Put tickers here
     ]
 
@@ -47,21 +47,24 @@ if __name__ == "__main__":
     new_equity = {}
 
     # Copy existing dictionary so that it updates
-    new_equities = {}
+    equities = {
+        'AAPL': 'Apple Inc.', 
+        'AMZN': 'Amazon.Com Inc',
+    }
 
-    for ticker in equities:
+    for ticker in equity_tickers:
         ticker_details = polygon_fetch_ticker_details(ticker)
         new_equity[ticker] = ticker_details.name  # access name field
-        new_equities.update(new_equity)
-        new_equities = dict(sorted(new_equities.items()))
+        equities.update(new_equity)
+        equities = dict(sorted(equities.items()))
         print(f"Updated {ticker}")
         time.sleep(12)
 
-    print(new_equities)
+    print(equities)
 
     time.sleep(12)
 
-    etfs = [
+    etf_tickers = [
         # Put tickers here
     ]
 
@@ -69,15 +72,15 @@ if __name__ == "__main__":
     new_etf = {}
 
     # Copy existing dictionary so that it updates
-    new_etfs = {}
+    etfs = {}
 
-    for ticker in etfs:
+    for ticker in etf_tickers:
         ticker_details = polygon_fetch_ticker_details(ticker)
         new_etf[ticker] = ticker_details.name  # access name field
-        new_etfs.update(new_etf)
-        new_etfs = dict(sorted(new_etfs.items()))
+        etfs.update(new_etf)
+        etfs = dict(sorted(etfs.items()))
         print(f"Updated {ticker}")
         time.sleep(12)
 
-    print(new_etfs)
+    print(etfs)
 

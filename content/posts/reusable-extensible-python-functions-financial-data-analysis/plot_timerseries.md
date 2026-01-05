@@ -1,4 +1,3 @@
-```text
 ```python
 import matplotlib.pyplot as plt
 import matplotlib.dates as mdates
@@ -147,5 +146,4 @@ def plot_timeseries(
     plt.show()
 
     return None
-```
 ```

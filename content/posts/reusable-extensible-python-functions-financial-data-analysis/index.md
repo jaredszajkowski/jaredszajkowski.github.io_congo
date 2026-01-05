@@ -24,6 +24,7 @@ This post intends to provide the code for all of the python functions that I use
 
 * [bb_clean_data](/posts/reusable-extensible-python-functions-financial-data-analysis/#bb_clean_data): Takes an Excel export from Bloomberg, removes the miscellaneous headings/rows, and returns a DataFrame.</br>
 * [build_index](/posts/reusable-extensible-python-functions-financial-data-analysis/#build_index): Reads the `index_temp.md` markdown file, inserts the markdown dependencies where indicated, and then saves the file as `index.md`.</br>
+* [calc_fed_cycle_asset_performance](/posts/reusable-extensible-python-functions-financial-data-analysis/#calc_fed_cycle_asset_performance): Calculates metrics for an asset based on a specified Fed tightening/loosening cycle.</br>
 * [calc_vix_trade_pnl](/posts/reusable-extensible-python-functions-financial-data-analysis/#calc_vix_trade_pnl): Calculates the profit/loss from VIX options trades.</br>
 * [coinbase_fetch_available_products](/posts/reusable-extensible-python-functions-financial-data-analysis/#coinbase_fetch_available_products): Fetch available products from Coinbase Exchange API.</br>
 * [coinbase_fetch_full_history](/posts/reusable-extensible-python-functions-financial-data-analysis/#coinbase_fetch_full_history): Fetch full historical data for a given product from Coinbase Exchange API.</br>
@@ -53,6 +54,7 @@ import pandas as pd
 
 from IPython.display import display
 
+
 def bb_clean_data(
     base_directory: str,
     fund_ticker_name: str,
@@ -62,13 +64,12 @@ def bb_clean_data(
     pickle_export: bool,
     output_confirmation: bool,
 ) -> pd.DataFrame:
-
     """
-    This function takes an excel export from Bloomberg and removes all excess data 
-    leaving date and close columns.
+    This function takes an excel export from Bloomberg and removes all
+    excess data leaving date and close columns.
 
-    Parameters:
-    -----------
+    Parameters
+    ----------
     base_directory : str
         Root path to store downloaded data.
     fund : str
@@ -83,9 +84,9 @@ def bb_clean_data(
         If True, export data to Pickle format.
     output_confirmation : bool
         If True, print confirmation message.
-        
-    Returns:
-    --------
+
+    Returns
+    -------
     df : pd.DataFrame
         DataFrame containing cleaned data prices.
     """
@@ -95,33 +96,33 @@ def bb_clean_data(
 
     # Read data from excel
     try:
-        df = pd.read_excel(location, sheet_name ="Worksheet", engine="calamine")
+        df = pd.read_excel(location, sheet_name="Worksheet", engine="calamine")
     except FileNotFoundError:
         print(f"File not found...please download the data for {fund_ticker_name}")
-    
+
     # Set the column headings from row 5 (which is physically row 6)
     df.columns = df.iloc[5]
-    
+
     # Set the column heading for the index to be "None"
-    df.rename_axis(None, axis=1, inplace = True)
-    
+    df.rename_axis(None, axis=1, inplace=True)
+
     # Drop the first 6 rows, 0 - 5
     df.drop(df.index[0:6], inplace=True)
-    
+
     # Set the date column as the index
-    df.set_index('Date', inplace = True)
-    
+    df.set_index("Date", inplace=True)
+
     # Drop the volume column
     try:
-        df.drop(columns = {'PX_VOLUME'}, inplace = True)
+        df.drop(columns={"PX_VOLUME"}, inplace=True)
     except KeyError:
         pass
-        
+
     # Rename column
-    df.rename(columns = {'PX_LAST':'Close'}, inplace = True)
-    
+    df.rename(columns={"PX_LAST": "Close"}, inplace=True)
+
     # Sort by date
-    df.sort_values(by=['Date'], inplace = True)
+    df.sort_values(by=["Date"], inplace=True)
 
     # Create directory
     directory = f"{base_directory}/{source}/{asset_class}/Daily"
@@ -148,8 +149,9 @@ def bb_clean_data(
         print(f"--------------------")
     else:
         pass
-    
+
     return df
+
 ```
 
 ### build_index
@@ -157,27 +159,28 @@ def bb_clean_data(
 ```python
 from pathlib import Path
 
+
 def build_index() -> None:
-    
     """
     Build a Hugo-compatible index.md by combining Markdown fragments.
 
-    This function reads a template file (`index_temp.md`) and a list of markdown dependencies 
-    from `index_dep.txt`. For each entry in the dependency list, it replaces a corresponding 
-    placeholder in the template (formatted as <!-- INSERT_<name>_HERE -->) with the content 
-    from the markdown file. If a file is missing, the placeholder is replaced with a warning note.
+    This function reads a template file (`index_temp.md`) and a list of markdown
+    dependencies from `index_dep.txt`. For each entry in the dependency list, it
+    replaces a corresponding placeholder in the template
+    (formatted as <!-- INSERT_<name>_HERE -->) with the content from the markdown
+    file. If a file is missing, the placeholder is replaced with a warning note.
 
-    Output:
-    -------
+    Output
+    ------
     - Writes the final assembled content to `index.md`.
 
-    Raises:
-    -------
+    Raises
+    ------
     FileNotFoundError:
         If either `index_temp.md` or `index_dep.txt` does not exist.
 
-    Example:
-    --------
+    Example
+    -------
     If `index_dep.txt` contains:
         01_intro.md
         02_analysis.md
@@ -186,10 +189,10 @@ def build_index() -> None:
         <!-- INSERT_01_intro_HERE -->
         <!-- INSERT_02_analysis_HERE -->
 
-    The resulting `index.md` will include the contents of the respective markdown files in place 
+    The resulting `index.md` will include the contents of the respective markdown files in place
     of their placeholders.
     """
-    
+
     temp_index_path = Path("index_temp.md")
     final_index_path = Path("index.md")
     dependencies_path = Path("index_dep.txt")
@@ -215,16 +218,91 @@ def build_index() -> None:
             content = Path(md_file).read_text()
             final_index_content = final_index_content.replace(placeholder, content)
         else:
-            print(f"⚠️  Warning: {md_file} not found, skipping placeholder {placeholder}")
-            final_index_content = final_index_content.replace(placeholder, f"*{md_file} not found*")
+            print(
+                f"⚠️  Warning: {md_file} not found, skipping placeholder {placeholder}"
+            )
+            final_index_content = final_index_content.replace(
+                placeholder, f"*{md_file} not found*"
+            )
 
     # Write final index.md
     final_index_path.write_text(final_index_content)
     print("✅ index.md successfully built!")
 
+
 if __name__ == "__main__":
     build_index()
 
+```
+
+### calc_fed_cycle_asset_performance
+
+```python
+import numpy as np
+import pandas as pd
+
+def calc_fed_cycle_asset_performance(
+    fed_cycles: list,
+    cycle_labels: list,
+    fed_changes: list,
+    monthly_df: pd.DataFrame,
+) -> pd.DataFrame:
+
+    results = []
+
+    for (start, end), label in zip(fed_cycles, cycle_labels):
+        start = pd.to_datetime(start)
+        end = pd.to_datetime(end)
+
+        # Filter TLT returns for the cycle period
+        returns = monthly_df.loc[start:end, "Monthly_Return"]
+
+        if len(returns) == 0:
+            continue
+
+        cumulative_return = (1 + returns).prod() - 1
+        average_return = returns.mean()
+        volatility = returns.std()
+
+        results.append({
+            "Cycle": label,
+            "Start": start.date(),
+            "End": end.date(),
+            "Months": len(returns),
+            "CumulativeReturn": cumulative_return,
+            "AverageMonthlyReturn": average_return,
+            "Volatility": volatility,
+        })
+
+    # Convert to DataFrame
+    cycle_df = pd.DataFrame(results)
+    cycle_df["CumulativeReturnPct"] = 100 * cycle_df["CumulativeReturn"]
+    cycle_df["AverageMonthlyReturnPct"] = 100 * cycle_df["AverageMonthlyReturn"]
+    cycle_df["AnnualizedReturn"] = (1 + cycle_df["CumulativeReturn"]) ** (12 / cycle_df["Months"]) - 1
+    cycle_df["AnnualizedReturnPct"] = 100 * cycle_df["AnnualizedReturn"]
+
+    # Correct the volatility calculation to annualized volatility
+    cycle_df["Volatility"] = cycle_df["Volatility"] * np.sqrt(12)
+
+    # Re-order columns
+    cycle_df = cycle_df[[
+        "Cycle", "Start", "End", "Months", "CumulativeReturn", "CumulativeReturnPct",  
+        "AverageMonthlyReturn", "AverageMonthlyReturnPct", "AnnualizedReturn", "AnnualizedReturnPct", "Volatility", 
+    ]]
+
+    # Merge Fed changes into cycle_df
+    cycle_df["FedFundsChange"] = fed_changes
+    cycle_df["FedFundsChange_bps"] = cycle_df["FedFundsChange"] * 10000  # in basis
+
+    # Add annualized change in FFR in basis points
+    cycle_df["FFR_AnnualizedChange"] = (cycle_df["FedFundsChange"] / cycle_df["Months"]) * 12
+    cycle_df["FFR_AnnualizedChange_bps"] = cycle_df["FFR_AnnualizedChange"] * 10000  # Convert to basis points
+
+    cycle_df["Label"] = cycle_df.apply(
+        lambda row: f"{row['Cycle']}, {row['Start']} to {row['End']}", axis=1
+    )
+
+    return cycle_df
 ```
 
 ### calc_vix_trade_pnl
@@ -243,8 +321,8 @@ def calc_vix_trade_pnl(
     """
     Calculate the profit and loss (PnL) of trades based on transaction data.
 
-    Parameters:
-    -----------
+    Parameters
+    ----------
     transaction_df : pd.DataFrame
         DataFrame containing transaction data.
     exp_start_date : str
@@ -256,8 +334,8 @@ def calc_vix_trade_pnl(
     trade_end_date : str
         End date for filtering transactions in 'YYYY-MM-DD' format. This is the end of the range for the trade date.
 
-    Returns:
-    --------
+    Returns
+    -------
     transactions_data : pd.DataFrame
         Dataframe containing the transactions for the specified timeframe.
     closed_trades : pd.DataFrame
@@ -1069,11 +1147,20 @@ def df_info_markdown(
     head_str = df.head().to_markdown(floatfmt=f".{decimal_places}f")
     tail_str = df.tail().to_markdown(floatfmt=f".{decimal_places}f")
 
+    # markdown = [
+    #     "```text",
+    #     "The columns, shape, and data types are:\n",
+    #     info_str,
+    #     "\nThe first 5 rows are:\n",
+    #     head_str,
+    #     "\nThe last 5 rows are:\n",
+    #     tail_str,
+    #     "```"
+    # ]
+
     markdown = [
-        "```text",
         "The columns, shape, and data types are:\n",
         info_str,
-        "```",
         "\nThe first 5 rows are:\n",
         head_str,
         "\nThe last 5 rows are:\n",
@@ -1092,6 +1179,7 @@ def export_track_md_deps(
     dep_file: Path, 
     md_filename: str, 
     content: str,
+    text_or_python: str,
 ) -> None:
     
     """
@@ -1110,6 +1198,8 @@ def export_track_md_deps(
         The name of the Markdown file to export.
     content : str
         The Markdown-formatted content to write to the file.
+    text_or_python : str
+        Indicates whether the content is plain text or Python code for proper formatting.
 
     Returns:
     --------
@@ -1121,7 +1211,13 @@ def export_track_md_deps(
     ✅ Exported and tracked: 01_intro.md
     """
     
-    Path(md_filename).write_text(content)
+    if text_or_python == "python":
+        Path(md_filename).write_text(f"```python\n{content}\n```")
+    elif text_or_python == "text":
+        Path(md_filename).write_text(f"```text\n{content}\n```")
+    else:
+        raise ValueError("text_or_python must be either 'text' or 'python'")
+
     with dep_file.open("a") as f:
         f.write(md_filename + "\n")
     print(f"✅ Exported and tracked: {md_filename}")
@@ -1303,6 +1399,7 @@ import pandas as pd
 
 from matplotlib.ticker import MultipleLocator
 
+
 def plot_stats(
     stats_df: pd.DataFrame,
     plot_columns,
@@ -1317,7 +1414,6 @@ def plot_stats(
     export_plot: bool,
     plot_file_name: str,
 ) -> None:
-
     """
     Plot the price data from a DataFrame for a specified date range and columns.
 
@@ -1359,10 +1455,14 @@ def plot_stats(
     # Plot data
     if plot_columns == "All":
         for col in stats_df.columns:
-            plt.scatter(stats_df.index, stats_df[col], label=col, linestyle='-', linewidth=1.5)
+            plt.scatter(
+                stats_df.index, stats_df[col], label=col, linestyle="-", linewidth=1.5
+            )
     else:
         for col in plot_columns:
-            plt.scatter(stats_df.index, stats_df[col], label=col, linestyle='-', linewidth=1.5)
+            plt.scatter(
+                stats_df.index, stats_df[col], label=col, linestyle="-", linewidth=1.5
+            )
 
     # Format X axis
     plt.gca().xaxis.set_major_locator(MultipleLocator(x_tick_spacing))
@@ -1379,7 +1479,7 @@ def plot_stats(
     plt.tight_layout()
 
     if grid == True:
-        plt.grid(True, linestyle='--', alpha=0.7)
+        plt.grid(True, linestyle="--", alpha=0.7)
 
     if legend == True:
         plt.legend(fontsize=9)
@@ -1392,6 +1492,7 @@ def plot_stats(
     plt.show()
 
     return None
+
 ```
 
 ### plot_vix_with_trades
@@ -1630,11 +1731,15 @@ def polygon_fetch_full_history(
                     raise Exception("No common columns to compare.")
 
                 # (Optional) de-duplicate to speed up the merge
-                full_dedup = full_history_df[common_cols].drop_duplicates()
-                new_dedup  = new_data[common_cols].drop_duplicates()
+                # full_dedup = full_history_df[common_cols].drop_duplicates()
+                # new_dedup  = new_data[common_cols].drop_duplicates()
+
+                price_cols = ['open', 'high', 'low', 'close']
 
                 # Inner join on every shared column = exact row matches
-                overlap = full_dedup.merge(new_dedup, on=common_cols, how="inner")
+                # overlap = full_dedup.merge(new_dedup, on=common_cols, how="inner")
+                # overlap = full_dedup.merge(new_dedup, on=price_cols, how="inner")
+                overlap = full_history_df.merge(new_data, on=price_cols, how="inner")
 
                 if overlap.empty:
                     raise Exception(f"New data does not overlap with existing data (full-row check).")
@@ -1728,8 +1833,8 @@ if __name__ == "__main__":
     # Example usage - minute
     df = polygon_fetch_full_history(
         client=client,
-        ticker="SPY",
-        timespan="day",
+        ticker="TQQQ",
+        timespan="hour",
         multiplier=1,
         adjusted=True,
         existing_history_df=df,
@@ -1759,6 +1864,7 @@ api_keys = load_api_keys()
 # Get the environment variable for where data is stored
 DATA_DIR = config("DATA_DIR")
 
+
 def polygon_pull_data(
     base_directory,
     ticker: str,
@@ -1775,7 +1881,6 @@ def polygon_pull_data(
     pickle_export: bool,
     output_confirmation: bool,
 ) -> pd.DataFrame:
-    
     """
     Read existing data file, download price data from Polygon, and export data.
 
@@ -1812,7 +1917,8 @@ def polygon_pull_data(
 
     Returns:
     --------
-    None
+    pd.DataFrame
+        DataFrame containing the updated price data.
     """
 
     # Open client connection
@@ -1821,58 +1927,70 @@ def polygon_pull_data(
     # Set file location based on parameters
     file_location = f"{base_directory}/{source}/{asset_class}/{timespan}/{ticker}.pkl"
 
-    if timespan == "minute":
-        time_delta = 15
-        time_overlap = 1
-    elif timespan == "hour":
-        time_delta = 15
-        time_overlap = 1
-    elif timespan == "day":
-        time_delta = 180
-        time_overlap = 1
-    else:
-        raise Exception(f"Invalid {timespan}.")
+    # Create list of acceptable timespans
+    acceptable_timespans = ["minute", "hour", "day"]
+    if timespan not in acceptable_timespans:
+        raise Exception(f"Invalid timespan: {timespan}. Acceptable timespans are: {acceptable_timespans}.")
+
+    # if timespan == "minute":
+    #     time_delta = 15
+    #     time_overlap = 1
+    # elif timespan == "hour":
+    #     time_delta = 15
+    #     time_overlap = 1
+    # elif timespan == "day":
+    #     time_delta = 180
+    #     time_overlap = 1
+    # else:
+    #     raise Exception(f"Invalid {timespan}.")
 
     try:
         # Attempt to read existing pickle data file
         existing_history_df = pd.read_pickle(file_location)
 
         # Reset index if 'Date' is column is the index
-        if 'Date' not in existing_history_df.columns:
+        if "Date" not in existing_history_df.columns:
             existing_history_df = existing_history_df.reset_index()
 
         print(f"File found...updating the {ticker} {timespan} data.")
 
-        if verbose ==True:
+        if verbose == True:
             print("Existing data:")
             print(existing_history_df)
 
         # Find last date in existing data
-        last_data_date = existing_history_df['Date'].max()
+        last_data_date = existing_history_df["Date"].max()
         print(f"Last date in existing data: {last_data_date}")
 
+        # Find the number of starting rows
         starting_rows = len(existing_history_df)
         print(f"Number of rows in existing data: {starting_rows}")
 
         # Overlap with existing data to capture all data
-        current_start = last_data_date - timedelta(days=time_overlap)
+        # current_start = last_data_date - timedelta(days=time_overlap)
+        current_start = last_data_date - timedelta(days=1)
 
     except FileNotFoundError:
         # Print error
         print(f"File not found...downloading the {ticker} {timespan} data.")
 
         # Create an empty DataFrame
-        existing_history_df = pd.DataFrame({
-            'Date': pd.Series(dtype="datetime64[ns]"),
-            'open': pd.Series(dtype="float64"),
-            'high': pd.Series(dtype="float64"),
-            'low': pd.Series(dtype="float64"),
-            'close': pd.Series(dtype="float64"),
-            'volume': pd.Series(dtype="float64"),
-            'vwap': pd.Series(dtype="float64"),
-            'transactions': pd.Series(dtype="int64"),
-            'otc': pd.Series(dtype="object")
-        })
+        existing_history_df = pd.DataFrame(
+            {
+                "Date": pd.Series(dtype="datetime64[ns]"),
+                "open": pd.Series(dtype="float64"),
+                "high": pd.Series(dtype="float64"),
+                "low": pd.Series(dtype="float64"),
+                "close": pd.Series(dtype="float64"),
+                "volume": pd.Series(dtype="float64"),
+                "vwap": pd.Series(dtype="float64"),
+                "transactions": pd.Series(dtype="int64"),
+                "otc": pd.Series(dtype="object"),
+            }
+        )
+
+        # Set the number of starting rows to be 0
+        starting_rows = 0
 
         # Set current date to start date
         current_start = start_date
@@ -1925,11 +2043,16 @@ def polygon_pull_data(
 
     return full_history_df
 
+
 if __name__ == "__main__":
 
+    # Get current year, month, day
     current_year = datetime.now().year
     current_month = datetime.now().month
     current_day = datetime.now().day
+
+    # Set global variables
+    GLOBAL_FREE_TIER = True
 
     # Stock Data
     equities = ["AMZN", "AAPL"]
@@ -1947,14 +2070,17 @@ if __name__ == "__main__":
             multiplier=1,
             adjusted=True,
             force_existing_check=False,
-            free_tier=True,
+            free_tier=GLOBAL_FREE_TIER,
             verbose=False,
             excel_export=True,
             pickle_export=True,
             output_confirmation=True,
         )
 
-        time.sleep(12)
+        if GLOBAL_FREE_TIER == True:
+            time.sleep(12)
+        else:
+            pass
 
         # Example usage - hourly
         polygon_pull_data(
@@ -1967,14 +2093,17 @@ if __name__ == "__main__":
             multiplier=1,
             adjusted=True,
             force_existing_check=False,
-            free_tier=True,
+            free_tier=GLOBAL_FREE_TIER,
             verbose=False,
             excel_export=True,
             pickle_export=True,
             output_confirmation=True,
         )
 
-        time.sleep(12)
+        if GLOBAL_FREE_TIER == True:
+            time.sleep(12)
+        else:
+            pass
 
         # Example usage - daily
         polygon_pull_data(
@@ -1987,14 +2116,18 @@ if __name__ == "__main__":
             multiplier=1,
             adjusted=True,
             force_existing_check=False,
-            free_tier=True,
+            free_tier=GLOBAL_FREE_TIER,
             verbose=False,
             excel_export=True,
             pickle_export=True,
             output_confirmation=True,
         )
 
-        time.sleep(12)
+        if GLOBAL_FREE_TIER == True:
+            time.sleep(12)
+        else:
+            pass
+        
 ```
 
 ### strategy_harry_brown_perm_port
